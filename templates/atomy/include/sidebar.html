@@ -1,0 +1,48 @@
+{% load social_tags cache %}
+
+
+{% cache 5000 sidebar %}
+<div class="col-lg-4 col-md-4">
+                        <div class="sidebar__item">
+                            <div class="sidebar__about__item">
+                                <div class="sidebar__item__title">
+                                    <h6>Обо мне</h6>
+                                </div>
+                                    {% get_about as about  %}
+                                        <img src="{{ about.get_first_image}}" alt="">
+                                        {{ about.mini_text|safe }}
+                                <a href="{% url 'about' %}" class="primary-btn">Далее</a>
+                            </div>
+                            <div class="sidebar__follow__item">
+                                <div class="sidebar__item__title">
+                                    <h6>Подписывайся</h6>
+                                </div>
+                                <div class="sidebar__item__follow__links">
+                                    <div class="footer__social">
+                                      {% get_social_links as social_links %}
+                                      {% for item in social_links %}
+                                        <a href="{{ item.link }}"><img src="{{ item.icon.url }}" width="30px"></a>
+                                      {% endfor %}
+                                </div>
+                            </div>
+                            <div class="sidebar__item__banner">
+                                <img src="img/sidebar/banner.jpg" alt="">
+                            </div>
+                            <div class="sidebar__item__categories">
+                                <div class="sidebar__item__title">
+                                    <h6>Категории</h6>
+                                </div>
+                                 {% include './sidebar_category.html' %}
+                            </div>
+                            <div class="sidebar__subscribe__item">
+                                <div class="sidebar__item__title">
+                                    <h6>Регистрация</h6>
+                                </div>
+                                <p>{{ about.registration|safe }}</p>
+                                    <a href="{% url 'contact' %}" class="site-btn">Регистрация</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+{% endcache %}
